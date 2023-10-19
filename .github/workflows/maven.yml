@@ -36,15 +36,8 @@ jobs:
         distribution: 'temurin'
         cache: maven
     
-    - name: Build with Maven
+    - name: test with Maven
       run: mvn clean verify
- 
-    - name: Test Report
-      uses: actions/upload-artifact@v3
-      if: success() || failure()
-      with:
-          name: SpringBoot Report               # Name of the folder
-          path: target/site/serenity/           # Path to test results
     
   deploy:
   
