@@ -31,10 +31,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @ExtendWith(MockitoExtension.class)
 @RunWith(MockitoJUnitRunner.class)
@@ -119,16 +116,20 @@ public class Lab7ApplicationTest {
     void deberiaEliminarseCorrectamente() {
 
         // Dado que tengo 1 empleado registrado
+        // Mockear la base de datos para que tenga un solo empleado
         Employee mockedEmployee = new Employee(1000858016L, "Carolina", "Medina", "Vendedor", 10.000);
-        List <Employee> mockedEmployees =new ArrayList<>();
+        List <Employee> mockedEmployees = new ArrayList<>();
         mockedEmployees.add(0, mockedEmployee);
 
-        // Cuando lo elimino a nivel de servicio
-        willDoNothing().given(mockedEmployeeRepository).deleteById(mockedEmployee.getEmployeeId());
+        //willDoNothing().given(mockedEmployeeRepository).deleteById(mockedEmployee.getEmployeeId());
+        doNothing().when(mockedEmployeeRepository).deleteById(mockedEmployee.getEmployeeId());
 
+        // Cuando lo elimino a nivel de servicio
+        // Llamar la función eliminar empleado que está a nivel de servicio
         employeeService.deleteUser(mockedEmployee.getEmployeeId());
 
         // Entonces la eliminación será exitosa
+        // Verificar que la función sea llamada una vez
         verify(mockedEmployeeRepository, times(1)).deleteById(mockedEmployee.getEmployeeId());
 
     }
