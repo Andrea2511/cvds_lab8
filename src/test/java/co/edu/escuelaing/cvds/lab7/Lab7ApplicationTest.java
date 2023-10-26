@@ -38,7 +38,6 @@ import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 @RunWith(MockitoJUnitRunner.class)
-
 public class Lab7ApplicationTest {
 
     @Mock
